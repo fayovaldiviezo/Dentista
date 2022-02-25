@@ -3,9 +3,15 @@
 
 <div class="content-wrapper">
     <section class="content-header">
+      @if($doctor->sexo =='Femenino')
+        <h2>Doctora: {{ $doctor->name }}</h2>
+        @else
+        <h2>Doctor: {{ $doctor->name}}</h2>
+        @endif
       <h2>Horarios </h2>
       @if($horarios == null)
-      
+
+        @if(auth()->user()->rol == 'Doctor')
         <form method="post"  action="{{url('Horario')}}">
           @csrf
          
@@ -22,9 +28,13 @@
             </div>
           </div>
         </form>
+        @endif
+      
+        
         @else
 
         @foreach($horarios as $hora) 
+        @if(auth()->user()->rol == 'Doctor')
         <form method="post" action="{{ url('editar-horario/'.$hora->id) }}">
           @csrf
           @method('put')
@@ -41,6 +51,11 @@
             </div>
           </div>
         </form>
+        @elseif(auth()->user()->rol == 'Paciente')
+        
+        <h2>{{$hora->horarioInicio}}-{{$hora->horarioFin}}</h2>
+        
+        @endif
         @endforeach
        
       

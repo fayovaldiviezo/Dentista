@@ -28,10 +28,16 @@ Route::put('Consultorio/{id}', [ConsultoriosController::class, 'update']);
 Route::delete('borrar-Consultorio/{id}', [ConsultoriosController::class, 'destroy']);
 
 
+// ver consultorios como paciente
+Route::get('Ver-Consultorios',[ConsultoriosController::class, 'verConsultorios']);
+
+
 Route::get('Doctores', [DoctoresController::class, 'index']);
 Route::post('Doctores', [DoctoresController::class, 'store']);
 Route::get('Eliminar-Doctor/{id}', [DoctoresController::class, 'destroy']);
 
+// Ver doctores como paciente
+Route::get('Ver-Doctores/{id}',[DoctoresController::class,'VerDoctores']);
 
 Route::get('Pacientes', [PacientesController::class, 'index']);
 Route::get('Crear-Paciente', [PacientesController::class, 'create']);

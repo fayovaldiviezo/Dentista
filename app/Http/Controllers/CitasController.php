@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Citas;
 use App\Models\Pacientes;
+use App\Models\Doctores;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,8 +25,9 @@ class CitasController extends Controller
         $horarios = DB::select('select * from horarios where id_doctor =' .$id);
         $pacientes = Pacientes::all();
         $citas = Citas::all()->where('id_doctor',$id);
+        $doctor = Doctores::find($id);
 
-        return view('modulos.Citas', compact('horarios','pacientes','citas'));
+        return view('modulos.Citas', compact('horarios','pacientes','citas','doctor'));
     }
 
     /**

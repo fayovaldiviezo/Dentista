@@ -36,6 +36,7 @@
 <script src="http://localhost/dental/dental2/public/bower_components/select2/dist/css/select2.min.css"></script>
 
 <script src="http://localhost/dental/dental2/public/bower_components/select2/dist/js/select2.min.js"></script>
+
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -46,6 +47,8 @@
 
 <link rel="stylesheet" href="http://localhost/dental/dental2/public/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
 <link rel="stylesheet" href="http://localhost/dental/dental2/public/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+
  <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -62,6 +65,8 @@
   @include('modulos.menuSecretaria')
   @elseif(auth()->user()->rol == "Doctor") 
   @include('modulos.menuDoctor')
+  @elseif(auth()->user()->rol == "Paciente") 
+  @include('modulos.menuPaciente')
   @endif
   @yield('content')
 </div>
@@ -268,6 +273,24 @@
                     start:'{{ $cita->FyHinicio }}',
                     end:'{{ $cita->FyHfinal }}',
                   },
+                  @elseif( auth()->user()->rol == 'Paciente')
+                      @if($cita->id_paciente == auth()->user()->id )
+                       {
+                        id:'{{ $cita->id }}',
+                        title:'{{ $cita->PAC->name }}',
+                        start:'{{ $cita->FyHinicio }}',
+                        end:'{{ $cita->FyHfinal }}',
+                      },
+                      @else
+                      {
+                        id:'{{ $cita->id }}',
+                        title:'Ocupado',
+                        start:'{{ $cita->FyHinicio }}',
+                        end:'{{ $cita->FyHfinal }}',
+                      },
+                      @endif
+                 
+
               @endif
 
             @endforeach
