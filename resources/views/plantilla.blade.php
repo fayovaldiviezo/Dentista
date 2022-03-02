@@ -67,6 +67,8 @@
   @include('modulos.menuDoctor')
   @elseif(auth()->user()->rol == "Paciente") 
   @include('modulos.menuPaciente')
+  @else
+  @include('modulos.menuAdministrador')
   @endif
   @yield('content')
 </div>
@@ -194,6 +196,15 @@
      'success'
    )
    </script>
+   @elseif(session('SecretariaCreada')=='Si')
+
+   <script type="text/javascript">
+     Swal.fire(
+     'La Secretaria ha sido Creada',
+     '',
+     'success'
+   )
+   </script>
 @endif
 
 
@@ -243,11 +254,41 @@
     })
   })
 
+  $('.table').on('click','.EliminarSecretaria',function()
+  {
+    var Sid = $(this).attr('Sid');
+    Swal.fire({
+      title:'¿Seguro qué desea Eliminar esta Secretaria?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText:'Cancelar',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+      confirmButtonColor: '#3085d6'  
+    }).then((result)=>
+    {
+      if(result.isConfirmed)
+      {
+        window.location = "Eliminar-Secretaria/"+Sid;
+      }
+    })
+  })
+
 </script>
 
 <?php
   $exp = explode("/",$_SERVER["REQUEST_URI"]);
 ?>
+
+@if($exp[4]=="Editar-Secretaria")
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $('#EditarSecretaria').modal('toggle');
+    })
+  </script>
+
+@endif
 
 @if($exp[4] == "Citas")
 
@@ -349,13 +390,25 @@
 
             if(diaActual <= fecha[0])
             {
-              $('#CitaModal').modal();
+              if("{{ auth()->user()->rol }}" == "Doctor")
+              {
+                $('#CitaModal').modal();
+              }
+              else if("{{ auth()->user()->rol }}" == "Paciente")
+              {
+                $('#Cita').modal();
+              }
             }
 
             $('#Fecha').val(fecha[0]);
             $('#Hora').val(hora1[0]+":00:00");
             $('#FyHinicio').val(fecha[0]+" "+hora1[0]+":00:00");
             $('#FyHfinal').val(fecha[0]+" "+HF);
+
+            $('#FechaP').val(fecha[0]);
+            $('#HoraP').val(hora1[0]+":00:00");
+            $('#FyHinicioP').val(fecha[0]+" "+hora1[0]+":00:00");
+            $('#FyHfinalP').val(fecha[0]+" "+HF);
              
           },
 

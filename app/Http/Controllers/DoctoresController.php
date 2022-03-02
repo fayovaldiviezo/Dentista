@@ -57,7 +57,6 @@ class DoctoresController extends Controller
 
     }
 
-    
     public function destroy($id)
     {
         DB::table('users')->whereId($id)->delete();

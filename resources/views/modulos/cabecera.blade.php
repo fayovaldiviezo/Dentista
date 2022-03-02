@@ -14,14 +14,14 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
                         {{ auth()->user()->name }}
                         <span class="hidden-xs"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-primary btn-flat">Mis datos</a>
+                                <a href="{{ url('Mis-Datos') }}" class="btn btn-primary btn-flat">Mis datos</a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-danger btn-flat">Salir</a>

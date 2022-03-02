@@ -7,7 +7,36 @@
     </section>
     <section class="content">
         <div class="box">
-
+            <div class="box-body">
+                <div class="col-md-6 bg-primary">
+                    <h1>Bienvenidos</h1>
+                    <hr>
+                    <h2>Días:</h2>
+                    <h3>{{ $inicio->dias }}</h3>
+                    <hr>
+                    <h2>Horarios:</h2>
+                    <h3>Desde: {{ $inicio->horaInicio }}</h3>
+                    <h3>Hasta: {{ $inicio->horaFin }}</h3>
+                    <hr>
+                    <h2>Dirección:</h2>
+                    <h3>{{ $inicio->direccion }}</h3>
+                    <hr>
+                    <h2>Contactos:</h2>
+                    <h3>Teléfono: {{ $inicio->telefono }} <br> Correo: {{ $inicio->email }}</h3>
+                </div>
+                <div class="col-md-6">
+                    <img src="http://localhost/dental/dental2/public/storage/{{$inicio->logo}}" class="img-responsive">
+                </div>
+            </div>
+            @if(auth()->user()->rol == "Administrador")
+            <div class="box-footer">
+                <a href="{{ 'Inicio-Editar' }}">
+                    <button class="btn btn-success btn-lg">
+                        Editar
+                    </button>
+                </a>
+            </div>
+            @endif
         </div>
     </section>
 </div>

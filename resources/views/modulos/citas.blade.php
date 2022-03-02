@@ -140,5 +140,42 @@
   </div>
 </div>
 
+<div class="modal fade" id="Cita">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post">
+        @csrf
+        <div class="modal-body">
+          <div class="box-body">
+            <div class="form-group">
+              <?php
+                $exp = explode ("/",$_SERVER["REQUEST_URI"]);
+                echo '<input type="hidden" name="id_doctor" value="'.$exp[5].'">';
+              ?>              
+              <input type="hidden" name="id_paciente" value="{{ auth()->user()->id }}">
+            </div>
+            
+            <div class="form-group">
+              <h2>Fecha:</h2>
+              <input type="text" class="form-control input-lg" id="FechaP" readonly="">
+            </div>
+            <div class="form-group">
+              <h2>Hora:</h2>
+              <input type="text" class="form-control input-lg" id="HoraP" readonly="">
+            </div>
+            <div class="form-group">
+              <input type="hidden" class="form-control input-lg" id="FyHinicioP" name="FyHinicio" readonly="">
+              <input type="hidden" class="form-control input-lg" id="FyHfinalP" name="FyHfinal" readonly="">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Pedir Cita</button>
+          <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 @endsection
